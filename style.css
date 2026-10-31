@@ -50,3 +50,26 @@ button, select {
         font-size: 16px;
     }
 }
+
+#udalost {
+    font-weight: bold;
+    color: darkslateblue;
+}
+
+.policko.stit {
+    background-color: lightgreen;
+}
+
+.policko.ukraden {
+    background-color: gold;
+    outline: 3px solid orange;
+    position: relative;
+    z-index: 1;
+}
+
+.policko.zmizel {
+    background-color: lightcoral;
+    outline: 3px solid red;
+    position: relative;
+    z-index: 1;
+}
