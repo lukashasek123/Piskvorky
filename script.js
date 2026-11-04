@@ -1,4 +1,3 @@
-
 let pole = document.getElementById("pole");
 let zprava = document.getElementById("zprava");
 let tahy = document.getElementById("tahy");
@@ -62,8 +61,14 @@ function zobrazPole() {
         policka[i].textContent = hra[i];
         policka[i].className = "policko";
 
+        // Barva symbolu jednotlivých hráčů
+        if (hra[i] != "") {
+            let cisloHrace = symboly.indexOf(hra[i]) + 1;
+            policka[i].className += " hrac" + cisloHrace;
+        }
+
         if (stity[i] && hra[i] != "") {
-            policka[i].className = "policko stit";
+            policka[i].className += " stit";
         }
 
         if (i == zvyraznene) {
@@ -168,7 +173,6 @@ function zkontrolujVyhru() {
             zprava.textContent = "Vyhrál hráč " + (vitez + 1) + " (" + hra[i] + ")!";
             konec = true;
             zobrazPole();
-
             return true;
         }
     }
@@ -197,7 +201,6 @@ function zemetreseni() {
     probihaZemetreseni = true;
     udalost.textContent = "Zemětřesení! Celé herní pole se promíchává!";
     zprava.textContent = "Probíhá zemětřesení...";
-
     pole.classList.add("zemetreseni");
 
     casovacZemetreseni = setTimeout(function() {
@@ -227,7 +230,6 @@ function zemetreseni() {
 
 function nahodnaUdalost() {
     zpravaUdalosti = true;
-
     let typ = nahodneCislo(100);
     let moznosti = [];
     let i;

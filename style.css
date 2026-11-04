@@ -1,109 +1,442 @@
+/* Celá stránka */
+* {
+    box-sizing: border-box;
+}
+
 body {
+    margin: 0;
+    min-height: 100vh;
     font-family: Arial, sans-serif;
-    background-color: whitesmoke;
-    text-align: center;
-    margin: 20px;
+    color: white;
+    background: linear-gradient(140deg, midnightblue, darkslateblue, rebeccapurple);
+}
+
+.stranka {
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 32px 24px;
+}
+
+/* Horní nadpis */
+.hlavicka {
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    gap: 24px;
+    margin-bottom: 28px;
+}
+
+.nadpis-maly, .sekce-popisek {
+    margin: 0 0 8px;
+    color: lightskyblue;
+    font-size: 12px;
+    font-weight: bold;
+    letter-spacing: 2px;
 }
 
 h1 {
-    color: darkblue;
+    margin: 0 0 10px;
+    font-size: clamp(34px, 5vw, 62px);
+    letter-spacing: -2px;
 }
 
-.nastaveni {
-    margin-bottom: 15px;
+h1 span {
+    color: gold;
 }
 
-button, select {
-    padding: 8px;
-    font-size: 16px;
+.podnadpis {
+    max-width: 670px;
+    margin: 0;
+    color: lavender;
+    line-height: 1.6;
+}
+
+.stitky {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    justify-content: flex-end;
+}
+
+.stitky span, .pet-udalosti {
+    padding: 9px 12px;
+    border: 1px solid cornflowerblue;
+    border-radius: 20px;
+    background: midnightblue;
+    color: aliceblue;
+    font-size: 12px;
+    white-space: nowrap;
+}
+
+/* Hlavní rozložení */
+.rozlozeni {
+    display: grid;
+    grid-template-columns: minmax(0, 1.65fr) minmax(300px, 1fr);
+    gap: 20px;
+    align-items: start;
+}
+
+.panel {
+    padding: 24px;
+    border: 1px solid slateblue;
+    border-radius: 20px;
+    background: midnightblue;
+    box-shadow: 0 12px 28px black;
+}
+
+.panel-hlavicka {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 12px;
+    margin-bottom: 20px;
+}
+
+h2 {
+    margin: 0;
+    font-size: 23px;
+}
+
+.pocitadlo {
+    padding: 10px 14px;
+    border: 1px solid cornflowerblue;
+    border-radius: 10px;
+    color: white;
+    background: darkslateblue;
+    font-weight: bold;
+    white-space: nowrap;
+}
+
+/* Ovládání hry */
+.ovladani {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    flex-wrap: wrap;
+    margin-bottom: 16px;
+}
+
+.ovladani label {
+    color: lavender;
+    font-size: 14px;
+}
+
+select, .tlacitko-hra {
+    min-height: 42px;
+    padding: 10px 14px;
+    border-radius: 10px;
+    font: inherit;
+    font-size: 14px;
+}
+
+select {
+    border: 1px solid cornflowerblue;
+    color: white;
+    background: darkslateblue;
+    cursor: pointer;
+}
+
+select:disabled {
+    opacity: 0.65;
+    cursor: not-allowed;
+}
+
+.tlacitko-hra {
+    border: 0;
+    background: gold;
+    color: midnightblue;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background 0.2s, transform 0.2s;
+}
+
+.tlacitko-hra:hover {
+    background: khaki;
+    transform: translateY(-2px);
+}
+
+.tlacitko-hra:focus-visible, select:focus-visible, .policko:focus-visible {
+    outline: 3px solid gold;
+    outline-offset: 2px;
+}
+
+.stav-hry {
+    padding: 14px 16px;
+    margin-bottom: 12px;
+    border-left: 4px solid deepskyblue;
+    border-radius: 9px;
+    background: darkslateblue;
+    font-size: 17px;
+    font-weight: bold;
+}
+
+.hlaseni-udalosti {
+    margin-bottom: 14px;
+    padding: 12px 14px;
+    border: 1px solid darkorange;
+    border-radius: 9px;
+    color: gold;
+    background: darkslateblue;
+    line-height: 1.5;
+}
+
+.hlaseni-udalosti:empty {
+    display: none;
+}
+
+/* Hrací plocha 15 × 15 */
+.obal-pole {
+    padding: 10px;
+    border: 1px solid cornflowerblue;
+    border-radius: 14px;
+    background: darkslateblue;
 }
 
 #pole {
+    position: relative;
     display: grid;
-    grid-template-columns: repeat(15, 32px);
-    width: max-content;
-    margin: 20px auto;
-    border: 2px solid black;
+    grid-template-columns: repeat(15, minmax(0, 1fr));
+    gap: 3px;
+    width: 100%;
 }
 
 .policko {
-    width: 32px;
-    height: 32px;
-    border: 1px solid gray;
-    background-color: white;
-    font-size: 22px;
-    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    aspect-ratio: 1;
+    min-width: 0;
     padding: 0;
+    border: 1px solid slateblue;
+    border-radius: 5px;
+    color: white;
+    background: darkslateblue;
+    font-size: clamp(10px, 1.5vw, 21px);
+    font-weight: bold;
+    cursor: pointer;
+    transition: background 0.12s;
 }
 
 .policko:hover {
-    background-color: lightblue;
+    background: slateblue;
 }
 
-@media (max-width: 550px) {
-    #pole {
-        grid-template-columns: repeat(15, 22px);
-    }
-    .policko {
-        width: 22px;
-        height: 22px;
-        font-size: 16px;
-    }
-}
+/* Barvy hráčů */
+.policko.hrac1 { color: deepskyblue; }
+.policko.hrac2 { color: violet; }
+.policko.hrac3 { color: lightgreen; }
+.policko.hrac4 { color: gold; }
 
-#udalost {
-    font-weight: bold;
-    color: darkslateblue;
-}
-
+/* Náhodné události na políčkách */
 .policko.stit {
-    background-color: lightgreen;
-}
-
-.policko.ukraden {
-    background-color: gold;
-    outline: 3px solid orange;
-    position: relative;
-    z-index: 1;
+    background: seagreen;
+    color: white;
+    border-color: lightgreen;
 }
 
 .policko.zmizel {
-    background-color: lightcoral;
-    outline: 3px solid red;
-    position: relative;
-    z-index: 1;
+    background: firebrick;
+    border-color: tomato;
 }
 
-
-#pole {
-    position: relative;
+.policko.ukraden {
+    background: darkorange;
+    color: midnightblue;
+    border-color: gold;
 }
 
+.policko.vyherni {
+    background: gold;
+    color: midnightblue;
+    border: 2px solid orange;
+}
+
+/* Trojité černé probliknutí při zemětřesení */
 #pole.zemetreseni::after {
     content: "";
     position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-color: black;
+    inset: 0;
+    background: black;
     pointer-events: none;
     animation: blikani 1.8s linear forwards;
 }
 
 @keyframes blikani {
-    0%, 33%, 66%, 100% {
-        opacity: 0;
-    }
+    0%, 33%, 66%, 100% { opacity: 0; }
+    16%, 50%, 83% { opacity: 1; }
+}
 
-    16%, 50%, 83% {
-        opacity: 1;
+.legenda {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px 20px;
+    margin-top: 16px;
+    color: lavender;
+    font-size: 13px;
+}
+
+.legenda span {
+    display: inline-flex;
+    align-items: center;
+    gap: 7px;
+}
+
+.barva {
+    display: inline-block;
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+}
+
+.barva.hrac1 { background: deepskyblue; }
+.barva.hrac2 { background: violet; }
+.barva.hrac3 { background: lightgreen; }
+.barva.hrac4 { background: gold; }
+
+/* Pravý sloupec */
+.pravy-sloupec {
+    display: grid;
+    gap: 20px;
+}
+
+.pravidla-panel h2 {
+    margin-bottom: 12px;
+}
+
+.pravidla-panel > p:not(.sekce-popisek), .doplnek {
+    color: lavender;
+    line-height: 1.6;
+    font-size: 14px;
+}
+
+.pravidlo {
+    display: grid;
+    gap: 5px;
+    margin-top: 12px;
+    padding: 12px;
+    border: 1px solid slateblue;
+    border-radius: 10px;
+    background: darkslateblue;
+}
+
+.pravidlo strong {
+    color: gold;
+}
+
+.pravidlo span {
+    color: aliceblue;
+    font-size: 13px;
+    line-height: 1.5;
+}
+
+.pravidla-panel .doplnek {
+    margin-bottom: 0;
+}
+
+.udalosti-panel .panel-hlavicka {
+    margin-bottom: 16px;
+}
+
+.udalosti-seznam {
+    display: grid;
+    gap: 10px;
+}
+
+.udalost-karta {
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+    padding: 12px;
+    border: 1px solid slateblue;
+    border-radius: 12px;
+    background: darkslateblue;
+}
+
+.udalost-karta.vzacna {
+    border-color: goldenrod;
+}
+
+.udalost-ikona {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    width: 38px;
+    height: 38px;
+    border-radius: 10px;
+    font-size: 23px;
+    font-weight: bold;
+    color: midnightblue;
+}
+
+.ikona-ztrata { background: lightcoral; }
+.ikona-stit { background: lightgreen; }
+.ikona-dvojity { background: lightskyblue; font-size: 16px; }
+.ikona-kradez { background: plum; }
+.ikona-zemetreseni { background: gold; }
+
+.udalost-popis {
+    flex: 1;
+    min-width: 0;
+}
+
+.udalost-popis h3 {
+    margin: 2px 0 5px;
+    font-size: 15px;
+}
+
+.udalost-popis p {
+    margin: 0;
+    color: lavender;
+    font-size: 12px;
+    line-height: 1.5;
+}
+
+.pravdepodobnost {
+    flex-shrink: 0;
+    padding: 4px 7px;
+    border-radius: 7px;
+    background: midnightblue;
+    color: gold;
+    font-size: 12px;
+    font-weight: bold;
+}
+
+.poznamka {
+    margin: 14px 0 0;
+    color: lightsteelblue;
+    font-size: 12px;
+    line-height: 1.5;
+}
+
+.paticka {
+    margin-top: 26px;
+    color: lightsteelblue;
+    text-align: center;
+    font-size: 11px;
+    letter-spacing: 2px;
+}
+
+/* Mobilní zobrazení */
+@media (max-width: 1080px) {
+    .rozlozeni {
+        grid-template-columns: 1fr;
+    }
+    .pravy-sloupec {
+        grid-template-columns: 1fr 1fr;
     }
 }
 
-.policko.vyherni {
-    background-color: gold;
-    color: black;
-    border: 2px solid orange;
+@media (max-width: 680px) {
+    .stranka { padding: 18px 10px; }
+    .hlavicka { flex-direction: column; align-items: flex-start; }
+    .stitky { justify-content: flex-start; }
+    .panel { padding: 14px; border-radius: 14px; }
+    .pravy-sloupec { grid-template-columns: 1fr; }
+    .obal-pole { padding: 5px; }
+    #pole { gap: 2px; }
+    .policko { border-radius: 3px; }
+    .ovladani label { width: 100%; }
+    .ovladani select, .tlacitko-hra { flex: 1; }
 }
-
