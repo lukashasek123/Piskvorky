@@ -3,109 +3,51 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Piškvorky: Chaos</title>
+    <title>Piškvorky s událostmi</title>
     <script src="script.js" defer></script>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-<div class="stranka">
-    <header class="hlavicka">
-        <div>
-            <p class="nadpis-maly">KLASICKÁ HRA, NEČEKANÁ PRAVIDLA</p>
-            <h1>PIŠKVORKY <span>CHAOS</span></h1>
-            <p class="podnadpis">Získej sedm symbolů v řadě. Ale pozor, každých pět tahů se může všechno změnit.</p>
+<h1>Piškvorky s náhodnými událostmi</h1>
+
+<main>
+    <section class="hra">
+        <h2>Hrací plocha</h2>
+        <div class="ovladani">
+            <label for="pocetHracu">Počet hráčů:</label>
+            <select id="pocetHracu">
+                <option value="2">2 hráči</option>
+                <option value="3">3 hráči</option>
+                <option value="4">4 hráči</option>
+            </select>
+            <button id="novaHra" type="button">Nová hra</button>
         </div>
-        <div class="stitky">
-            <span>15 × 15 políček</span>
-            <span>2–4 hráči</span>
-        </div>
-    </header>
+        <p id="zprava">Na tahu je hráč 1 (X)</p>
+        <p id="tahy">Počet tahů: 0</p>
+        <p id="udalost"></p>
+        <div id="pole"></div>
+        <p class="legenda">Hráč 1: X | Hráč 2: O | Hráč 3: ▲ | Hráč 4: ■</p>
+    </section>
 
-    <main class="rozlozeni">
-        <section class="panel hra-panel" aria-label="Herní plocha">
-            <div class="panel-hlavicka">
-                <div>
-                    <p class="sekce-popisek">HERNÍ ARÉNA</p>
-                    <h2>Hraj a přežij chaos</h2>
-                </div>
-                <div class="pocitadlo" id="tahy">Počet tahů: 0</div>
-            </div>
-
-            <div class="ovladani">
-                <label for="pocetHracu">Počet hráčů</label>
-                <select id="pocetHracu">
-                    <option value="2">2 hráči</option>
-                    <option value="3">3 hráči</option>
-                    <option value="4">4 hráči</option>
-                </select>
-                <button id="novaHra" class="tlacitko-hra" type="button">Nová hra</button>
-            </div>
-
-            <div class="stav-hry" id="zprava" aria-live="polite">Na tahu je hráč 1 (X)</div>
-            <div class="hlaseni-udalosti" id="udalost" aria-live="polite"></div>
-
-            <div class="obal-pole">
-                <div id="pole" aria-label="Piškvorkové pole 15 na 15"></div>
-            </div>
-
-            <div class="legenda">
-                <span><b class="barva hrac1"></b> Hráč 1: X</span>
-                <span><b class="barva hrac2"></b> Hráč 2: O</span>
-                <span><b class="barva hrac3"></b> Hráč 3: ▲</span>
-                <span><b class="barva hrac4"></b> Hráč 4: ■</span>
-            </div>
+    <aside>
+        <section class="informace">
+            <h2>Pravidla</h2>
+            <p>Hráči se střídají a klikají na prázdná políčka.</p>
+            <p>Kdo jako první vytvoří 7 stejných symbolů vodorovně, svisle nebo šikmo, vyhrává.</p>
+            <p>Po každých 5 tazích nastane náhodná událost.</p>
         </section>
-
-        <aside class="pravy-sloupec">
-            <section class="panel pravidla-panel">
-                <p class="sekce-popisek">JAK HRÁT</p>
-                <h2>Jednoduchá pravidla</h2>
-                <p>Hráči se střídají v pokládání symbolů na volná políčka.</p>
-                <div class="pravidlo"><strong>7 v řadě</strong><span>Vyhrává sedm stejných symbolů vedle sebe, nad sebou nebo šikmo.</span></div>
-                <div class="pravidlo"><strong>Každý 5. tah</strong><span>Spustí se jedna z pěti náhodných událostí.</span></div>
-                <p class="doplnek">Po kliknutí na „Nová hra“ můžeš vybrat počet hráčů a hru znovu spustit.</p>
-            </section>
-
-            <section class="panel udalosti-panel">
-                <div class="panel-hlavicka">
-                    <div>
-                        <p class="sekce-popisek">NEČEKANÉ ZVRATY</p>
-                        <h2>Seznam událostí</h2>
-                    </div>
-                    <span class="pet-udalosti">5 událostí</span>
-                </div>
-                <div class="udalosti-seznam">
-                    <article class="udalost-karta">
-                        <span class="udalost-ikona ikona-ztrata">−</span>
-                        <div class="udalost-popis"><h3>Ztráta symbolu</h3><p>Jeden náhodný nechráněný symbol zmizí z hrací plochy.</p></div>
-                        <span class="pravdepodobnost">24 %</span>
-                    </article>
-                    <article class="udalost-karta">
-                        <span class="udalost-ikona ikona-stit">◆</span>
-                        <div class="udalost-popis"><h3>Štít</h3><p>Jeden symbol aktuálního hráče získá ochranu před ztrátou a krádeží.</p></div>
-                        <span class="pravdepodobnost">24 %</span>
-                    </article>
-                    <article class="udalost-karta">
-                        <span class="udalost-ikona ikona-dvojity">×2</span>
-                        <div class="udalost-popis"><h3>Dvojitý tah</h3><p>Aktuální hráč může okamžitě položit další symbol.</p></div>
-                        <span class="pravdepodobnost">24 %</span>
-                    </article>
-                    <article class="udalost-karta">
-                        <span class="udalost-ikona ikona-kradez">↔</span>
-                        <div class="udalost-popis"><h3>Krádež symbolu</h3><p>Jeden soupeřův nechráněný symbol se změní na tvůj.</p></div>
-                        <span class="pravdepodobnost">23 %</span>
-                    </article>
-                    <article class="udalost-karta vzacna">
-                        <span class="udalost-ikona ikona-zemetreseni">≋</span>
-                        <div class="udalost-popis"><h3>Zemětřesení</h3><p>Pole třikrát zčerná a všechny symboly se náhodně přemístí, včetně štítů.</p></div>
-                        <span class="pravdepodobnost">5 %</span>
-                    </article>
-                </div>
-                <p class="poznamka">Pravděpodobnosti platí při každém spuštění náhodné události.</p>
-            </section>
-        </aside>
-    </main>
-    <footer class="paticka">PIŠKVORKY CHAOS · ŠKOLNÍ WEBOVÁ HRA</footer>
-</div>
+        <section class="informace">
+            <h2>Seznam událostí</h2>
+            <ul>
+                <li><strong>Ztráta symbolu (24 %)</strong><p>Jeden náhodný nechráněný symbol zmizí.</p></li>
+                <li><strong>Štít (24 %)</strong><p>Jeden tvůj symbol získá ochranu před ztrátou a krádeží.</p></li>
+                <li><strong>Dvojitý tah (24 %)</strong><p>Hráč může hrát ještě jednou.</p></li>
+                <li><strong>Krádež symbolu (23 %)</strong><p>Jeden soupeřův nechráněný symbol se změní na tvůj.</p></li>
+                <li><strong>Zemětřesení (5 %)</strong><p>Celá plocha třikrát černě problikne a symboly se náhodně přesunou.</p></li>
+            </ul>
+            <p class="poznamka">Procenta platí při spuštění náhodné události.</p>
+        </section>
+    </aside>
+</main>
 </body>
 </html>
